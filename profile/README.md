@@ -1,191 +1,72 @@
-# 🏢 Ansospace DevOps Ecosystem Blueprint
+# 👋 Welcome to Ansospace
 
-## 🌐 Vision
+**Ansospace** is a modular, scalable developer ecosystem and platform powering a suite of internal tools, SDKs, microservices, and product applications. We help build fast, secure, and reusable SaaS platforms across web and mobile to accelerate innovation without reinvention.
 
-Build a **product-ready ecosystem** of modular, secure, scalable internal tools and services that power all current and future applications of your software development company.
+## 🚀 Our Vision
 
-From LMS to finance tracking and food delivery — every new product should reuse your platform resources like auth, UI kits, notifications, payments, analytics, etc.
+Create a future-proof, product-ready platform where every application leverages shared authentication, notifications, analytics, payments, UI components, and more — enabling fast, secure, and consistent development.
 
----
+## 📚 What You’ll Find Here
 
-## 🧱 Core Architecture
+* **ansospace-core** — Core monorepo with reusable SDKs and platform tools
+* **ansospace-mobile-sdk** — React Native mobile plugins (auth, chat, UI, etc.)
+* **core-services/** — Independent, versioned backend microservices (auth, notify, cms, etc.)
+* **product-platforms/** — Product-specific web, admin, mobile apps, and business logic
 
-### 1. **Monorepo: `ansospace`**
+## 🔧 What We Build
 
-> Frontend foundation & plugin SDKs
+* Modular authentication & notification kits replacing vendor lock-in
+* Multi-tenant SaaS platforms like LMS, school management, and delivery apps
+* Unified design system and developer tooling for a seamless dev experience
+* Secure, extensible microservices with strong API contracts
 
-* **apps/web**: public-facing frontends
-* **apps/dashboard**: global super-admin dashboard
-* **tools/**: publishable, reusable SDKs (auth, notifications, gamification, etc.)
-* **packages/**: design system (`ui`), shared types, shared config
+## 🌐 Our Ecosystem
 
-#### Core Tools under `tools/`
+### 🔧 Core Infrastructure
 
-* `auth-kit`: replace Clerk/Auth0 with your own
-* `notification-kit`: self-hostable Mailgun/OneSignal alternative
-* `gamification-kit`: leaderboards, XP, badges
-* `chat-kit`: reusable internal chat layer
-* `seo-kit`, `analytics-kit`: for metadata and business intelligence
+* [`ansospace-core`](https://github.com/ansospace/ansospace-core): Shared apps, SDKs, design system, tooling
+* [`ansospace-mobile-sdk`](https://github.com/ansospace/ansospace-mobile-sdk): React Native packages (auth, UI, etc)
 
-> ⚡ **Note:** `ansospace` is an internal-use-only foundation and landing site for platform marketing.
+### 🧩 Microservices
 
----
+* [`core-user`](https://github.com/ansospace/core-user): Auth & user service
+* [`core-notify`](https://github.com/ansospace/core-notify): In-app & email notifications
+* [`core-media`](https://github.com/ansospace/core-media): File uploads, image delivery
 
-### 2. **Microservices** (Polyrepo)
+### 🎓 Flagship Products
 
-Each is independently deployable, versioned, and language-agnostic.
+* [`ansopedia`](https://github.com/ansospace/ansopedia): AI-powered Learning Management System
+* [`ansoschool`](https://github.com/ansospace/ansoschool): School/college management
+* [`ansodelivery`](https://github.com/ansospace/ansodelivery): On-demand delivery service
 
-| Repo                   | Responsibility                        |
-| ---------------------- | ------------------------------------- |
-| `user-service`         | User identity, roles, RBAC            |
-| `notification-service` | Email, push, in-app events            |
-| `cms`                  | Blogs, course content, FAQs           |
-| `media-service`        | Image uploads, file processing        |
-| `billing-service`      | Stripe/webhooks, plans, subscription  |
-| `institute-service`    | Colleges, schools, rankings, metadata |
-| `quiz-service`         | Create, evaluate, rank quizzes        |
+## 🧠 Platform Principles
 
-Each service:
+* **Modular**: All features are built as standalone kits
+* **Multi-tenant**: From auth to analytics, everything supports tenant-based logic
+* **Open-core**: Transparent structure, easy to fork or extend
+* **Mobile-native**: Shared SDKs support native + web-first workflows
+* **Zero lock-in**: No Mailgun, Clerk, or other 3rd party dependency traps
 
-* Exposes a REST/gRPC/OpenAPI interface
-* Uses Zod/Schema contracts in `shared-types`
-* Auth via `auth-kit`
-* Traced via `analytics-kit`
+## 🛠 Technologies
 
----
+* `Next.js`, `React Native`, `TailwindCSS`, `ShadCN`
+* `Zod`, `TRPC`, `Postgres`, `Redis`, `Supabase`, `Stripe`
+* `Turborepo`, `PNPM`, `Changesets`, `GitHub Actions`
 
-### 3. **Modular Product Apps (Polyrepos per Product)**
+## 🌱 Get Started
 
-Each product (e.g., LMS, delivery app, school system) should have **separate polyrepos** with the following suggested structure:
+* Explore our [architecture docs](https://github.com/ansospace/ansospace-core/blob/main/docs/architecture.md)
+* Check out individual repos to learn about their scope and responsibilities (`SCOPE.md`)
+* Follow our contribution guidelines and join us in building the future platform
 
-```
-<product-name>-platform/
-├── apps/
-│   ├── web/               # Public-facing web app (Next.js)
-│   ├── admin/             # Admin panel for managing product-specific logic
-├── services/
-│   └── <business-service> # Core backend logic
-├── packages/
-│   └── types/             # App-specific types or utils (optionally share with ansospace)
-├── .env.local             # Environment config for local
-├── README.md              # Scope and responsibility
-```
+## 📬 Connect with Us
 
-> ❌ Do NOT include `mobile/` here to avoid bloating dev workflows.
+* Submit issues and feature requests in each repo
+* Join discussions and collaborate through GitHub Projects
+* Reach out via [contact@ansospace.com](mailto:contact@ansospace.com) for partnership inquiries
+
+Thanks for visiting! We’re building something awesome — come join the journey.
 
 ---
 
-### 4. **Shared Mobile Monorepo: `ansomobile`**
-
-> React Native SDKs & Apps
-
-```
-ansomobile/
-├── apps/
-│   ├── delivery-app/       # Mobile delivery app (Expo)
-│   ├── lms-app/            # LMS student app
-│   ├── school-app/         # School management mobile
-├── packages/
-│   ├── ui/                 # Reusable native components
-│   ├── auth-kit/           # Shared mobile auth SDK
-│   ├── notification-kit/   # Mobile notifications + Firebase
-│   └── types/              # Shared types with ansospace
-├── README.md
-```
-
----
-
-### 5. **GitHub Organization Strategy**
-
-Organize your GitHub repos into **teams/folders** using GitHub Projects or naming convention:
-
-#### ⬇️ Recommended Repo Naming
-
-| Scope        | Example Repo                            | Purpose                            |
-| ------------ | --------------------------------------- | ---------------------------------- |
-| Shared Infra | `ansospace`                             | Internal monorepo + landing        |
-| SDKs/Plugins | `auth-kit`, `chat-kit`, etc.            | Independent toolkits (npm-publish) |
-| Mobile       | `ansomobile`                            | React Native workspace             |
-| LMS          | `lms-platform`, `lms-service`           | Product polyrepo                   |
-| Delivery     | `delivery-platform`, `delivery-service` | Delivery business logic            |
-| School       | `school-platform`, `school-service`     | School management system           |
-| Services     | `user-service`, `notification-service`  | Core backend microservices         |
-
-> ✅ Use `platform` suffix for polyrepo apps
-> ✅ Use `service` suffix for backends
-
----
-
-## 🔐 Security by Default
-
-* Zod-based runtime validation for all configs
-* JWT & RBAC handled in `auth-kit`
-* Role-level UI in `apps/dashboard`
-* Use OAuth2 PKCE flows for native apps
-* API gateway restricts service exposure
-* Internal CLI for secrets management (TBD)
-
----
-
-## 🏗️ Developer Experience
-
-* `pnpm` + `turborepo`: workspace management
-* `changesets`: controlled versioning for publishable packages
-* `eslint`, `prettier`, `tsconfig` unified via `@ansospace/config`
-* `storybook` for UI packages (planned)
-* `nx` or `bazel` optionally later for complex service graph
-
----
-
-## 📆 Future-Proofing: All Apps Plug-and-Play
-
-Each new app should:
-
-* Consume from `@ansospace/*` SDKs (tools)
-* Share UI via `@ansospace/ui`
-* Deploy from own polyrepo with shared internal deps
-* Integrate with base microservices (user, media, analytics, etc.)
-* Ship mobile using `ansomobile` workspace
-
-### Example: School Management System
-
-Uses:
-
-* `auth-kit`, `user-service`
-* `notification-kit` for report cards
-* `quiz-service` for assessments
-* `cms` for content
-* `chat-kit` for parent-teacher chat
-* `billing-service` for fees
-* Mobile app from `ansomobile/school-app`
-
----
-
-## 🚀 Platform Tooling
-
-* GitHub Actions: CI/CD + publish + tests
-* Vercel: frontend hosting
-* Railway/Fly.io: microservices
-* Sentry/PostHog: logging/telemetry
-* Neon/Supabase: storage
-
----
-
-## 📚 Documentation
-
-* Each repo contains a `SCOPE.md`
-* Root docs: `docs/architecture.md`, `docs/tooling.md`, `docs/onboarding.md`
-
----
-
-## 📍 Strategy Summary
-
-✅ **Reusable SDKs** in monorepo
-✅ **Stateless, versioned microservices** for logic separation
-✅ **Zero-vendor lock-in**: no Mailgun, Clerk, etc.
-✅ **Frontend-ready platform** with shared UI + auth + analytics
-✅ **Future apps reuse without reinvention**
-✅ **Dev-friendly, CI/CD-first, open-core architecture**
-✅ **Modular polyrepos for product scaling (web, admin, mobile, service)**
-✅ **Dedicated mobile monorepo (`ansomobile`) for scalable native apps**
-✅ **Platform tooling for seamless deployment, logging, and analytics**
+> *This profile README is maintained by the Ansospace core team.*
